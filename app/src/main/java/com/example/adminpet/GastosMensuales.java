@@ -7,13 +7,19 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link GastosMensuales#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.google.firebase.firestore.FirebaseFirestore;
+
+
 public class GastosMensuales extends Fragment {
+
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -28,15 +34,7 @@ public class GastosMensuales extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment GastosMensuales.
-     */
-    // TODO: Rename and change types and number of parameters
+
     public static GastosMensuales newInstance(String param1, String param2) {
         GastosMensuales fragment = new GastosMensuales();
         Bundle args = new Bundle();
@@ -46,19 +44,53 @@ public class GastosMensuales extends Fragment {
         return fragment;
     }
 
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+        String ide = "";
+        Bundle args = getArguments();
+        if (args!=null){
+            ide = args.getString("id");
+
         }
     }
+
+    private TextView c1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View a = inflater.inflate(R.layout.fragment_gastos_mensuales, container, false);
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_gastos_mensuales, container, false);
+        String ide = "";
+        Bundle args = getArguments();
+        if (args!=null){
+            ide = args.getString("id");
+            Toast.makeText(getActivity().getApplicationContext(), "ideeee: "+ide, Toast.LENGTH_SHORT).show();
+        }
+
+        EditText c1 = a.findViewById(R.id.gastoMensual);
+        Button btnGM = a.findViewById(R.id.btnGastoMes);
+
+        btnGM.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String GMA = c1.getText().toString();
+                Toast.makeText(getActivity().getApplicationContext(), "gasto mensual: "+GMA, Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
+
+
+
+
+        return a;
     }
+
+
+
 }

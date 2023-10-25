@@ -25,11 +25,14 @@ public class Principal1 extends AppCompatActivity {
         Toolbar tb = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(tb);
 
+        String ide = "";
+
         Bundle paquete = getIntent().getExtras();
         if(paquete != null){
-            String ide = paquete.getString("id");
-            System.out.println("La clave es: "+ide);
-            Toast.makeText(this, "El id es: "+ide, Toast.LENGTH_SHORT).show();
+            ide = paquete.getString("id");
+            System.out.println("peiroooo: "+ide);
+
+
         }
 
 
@@ -69,6 +72,9 @@ public class Principal1 extends AppCompatActivity {
                 if (id == R.id.op1){
                     fab.setVisibility(View.VISIBLE);
                     GastosMensuales gm = new GastosMensuales();
+
+                    gm.setArguments(paquete);
+
                     getSupportFragmentManager().beginTransaction().replace(R.id.contenedor,gm).commit();
                     Toast.makeText(getApplicationContext(), "Gastos mensuales", Toast.LENGTH_SHORT).show();
 
