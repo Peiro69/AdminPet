@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "818065419367",
+    "project_id": "appapet-67086",
+    "storage_bucket": "appapet-67086.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:818065419367:android:2ccb97b9afda8b2b95b8c2",
+        "android_client_info": {
+          "package_name": "com.example.adminpet"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9o66inUjuMUtDE97-lAqjigMT0bDqzJ0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

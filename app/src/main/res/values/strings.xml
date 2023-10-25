@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">AdminPet</string>
+    <string name="correo">Correo</string>
+    <string name="psw">Contraseña</string>
+    <string name="intro">Ingresar</string>
+    <string name="login">Inicio de Sesión</string>
+    <string name="no_registro">No tienes registros</string>
+    <string name="olvidarPsw">¿Olvidaste tu contraseña?</string>
+    <string name="registrar">Crear una cuenta</string>
+    <string name="nombre">Nombre</string>
+    <string name="telefono">Telefono</string>
+    <string name="repetirPsw">Repetir Contraseña</string>
+    <string name="edad">Edad</string>
+    <string name="registroo">Registrar Cuenta</string>
+
+    <string name="perfil">Perfil</string>
+    <string name="Gastos_mensuales">Gastos Mensuales</string>
+    <string name="agregarCitasMedicas">Añadir Cita Médica</string>
+    <string name="CitasMedicas">Citas Médicas</string>
+
+    <string name="motivo">Motivo</string>
+    <string name="doctor">Doctor</string>
+    <string name="clVeterinaria">Clinica Veterinaria</string>
+    <string name="fecha">Fecha</string>
+    <string name="hora">Hora</string>
+    <string name="ingresarHora">Ingresar Hora</string>
+    <string name="registrarMascota">Registrar Mascota</string>
+
+    <string name="a">abrir menu</string>
+    <string name="c">cerrar menu</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string name="especie">Especie</string>
+    <string name="raza">Raza (opcional)</string>
+    <string name="addphoto">Agrega una imágen de nuevo amigo</string>
+
+    <string name="ing_gastoMensual">Ingresa el gasto del mes</string>
+    <string name="btn_RegMes">Ingresar el gasto del mes</string>
+    <string name="comparacionGastos">Ver comparacion mensual</string>
+    <string name="mascotas">Mascotas Registradas</string>
+</resources>

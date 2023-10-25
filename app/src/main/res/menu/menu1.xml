@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/op1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="@string/Gastos_mensuales" />
+    <item
+        android:id="@+id/op2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="@string/CitasMedicas" />
+    <item
+        android:id="@+id/op3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="@string/agregarCitasMedicas" />
+    <item
+        android:id="@+id/op4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="@string/mascotas" />
+    <item
+        android:id="@+id/op5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="@string/registrarMascota" />
+    <item
+        android:id="@+id/op6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:icon="@drawable/ic_action_name"
+        android:title="@string/perfil" />
+</menu>
