@@ -95,12 +95,12 @@ public class GastosMensuales extends Fragment {
                 usuario.update(datos).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void unused) {
-
+                                        Toast.makeText(getActivity().getApplicationContext(), "Registro realizado", Toast.LENGTH_SHORT).show();
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-
+                                Toast.makeText(getActivity().getApplicationContext(), "ERROR", Toast.LENGTH_SHORT).show();
                             }
                         });
                 Toast.makeText(getActivity().getApplicationContext(), "gasto mensual: "+GMA, Toast.LENGTH_SHORT).show();
