@@ -2,6 +2,7 @@ package com.example.adminpet;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -12,7 +13,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class GastosMensuales extends Fragment {
@@ -49,12 +56,11 @@ public class GastosMensuales extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        String ide = "";
-        Bundle args = getArguments();
-        if (args!=null){
-            ide = args.getString("id");
-
-        }
+        //String ide = "";
+        //Bundle args = getArguments();
+        //if (args!=null){
+        //    ide = args.getString("id");
+        //}
     }
 
     private TextView c1;
@@ -64,12 +70,11 @@ public class GastosMensuales extends Fragment {
                              Bundle savedInstanceState) {
         View a = inflater.inflate(R.layout.fragment_gastos_mensuales, container, false);
         // Inflate the layout for this fragment
-        String ide = "";
-        Bundle args = getArguments();
-        if (args!=null){
-            ide = args.getString("id");
-            Toast.makeText(getActivity().getApplicationContext(), "ideeee: "+ide, Toast.LENGTH_SHORT).show();
-        }
+        //String ide = "";
+        //Bundle args = getArguments();
+        //if (args!=null){
+        //    ide = args.getString("id");
+        //}
 
         EditText c1 = a.findViewById(R.id.gastoMensual);
         Button btnGM = a.findViewById(R.id.btnGastoMes);
@@ -77,7 +82,27 @@ public class GastosMensuales extends Fragment {
         btnGM.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String ide = "";
+                Bundle args = getArguments();
+                if (args!=null){
+                    ide = args.getString("id");
+                }
                 String GMA = c1.getText().toString();
+                DocumentReference usuario = db.collection("usuarios").document(""+ide);
+                HashMap<String, Object> datos = new HashMap<>();
+                datos.put("GastoMesActual",GMA);
+                datos.put("GastoMesAnterior","");
+                usuario.update(datos).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+
+                            }
+                        });
                 Toast.makeText(getActivity().getApplicationContext(), "gasto mensual: "+GMA, Toast.LENGTH_SHORT).show();
 
             }
