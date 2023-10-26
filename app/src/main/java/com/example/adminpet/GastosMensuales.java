@@ -63,7 +63,6 @@ public class GastosMensuales extends Fragment {
         //}
     }
 
-    private TextView c1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
