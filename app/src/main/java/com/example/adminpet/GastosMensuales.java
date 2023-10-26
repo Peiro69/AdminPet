@@ -13,11 +13,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -87,22 +93,44 @@ public class GastosMensuales extends Fragment {
                     ide = args.getString("id");
                 }
                 String GMA = c1.getText().toString();
-                DocumentReference usuario = db.collection("usuarios").document(""+ide);
+                Calendar calendar = Calendar.getInstance();
+                Integer dia = calendar.get(Calendar.DAY_OF_MONTH);
+                Integer mes = calendar.get(Calendar.MONTH);
+                Integer anio = calendar.get(Calendar.YEAR);
+
+                String fechaA = ""+dia+"/"+(mes+1)+"/"+anio;
+
+                //DocumentReference usuario = db.collection("usuarios").document(""+ide);
                 HashMap<String, Object> datos = new HashMap<>();
-                datos.put("GastoMesActual",GMA);
-                datos.put("GastoMesAnterior","");
-                usuario.update(datos).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void unused) {
-                                        Toast.makeText(getActivity().getApplicationContext(), "Registro realizado", Toast.LENGTH_SHORT).show();
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(getActivity().getApplicationContext(), "ERROR", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                Toast.makeText(getActivity().getApplicationContext(), "gasto mensual: "+GMA, Toast.LENGTH_SHORT).show();
+                datos.put("Mes",fechaA);
+                datos.put("GastoMes",GMA);
+
+                db.collection("usuarios/"+ide+"/gastos").add(datos).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Toast.makeText(getActivity().getApplicationContext(), "Gasto Mensual: "+ GMA, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity().getApplicationContext(), "Fecha: "+fechaA, Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getActivity().getApplicationContext(), "NO FUNCO :(", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
+                        //.addOnSuccessListener(new OnSuccessListener<Void>() {
+                        //            @Override
+                        //            public void onSuccess(Void unused) {
+                        //                Toast.makeText(getActivity().getApplicationContext(), "Registro realizado", Toast.LENGTH_SHORT).show();
+                        //            }
+                        //        }).addOnFailureListener(new OnFailureListener() {
+                        //    @Override
+                        //    public void onFailure(@NonNull Exception e) {
+                        //        Toast.makeText(getActivity().getApplicationContext(), "ERROR", Toast.LENGTH_SHORT).show();
+                        //    }
+                        //});
+                //Toast.makeText(getActivity().getApplicationContext(), "gasto mensual: "+GMA, Toast.LENGTH_SHORT).show();
 
             }
         });

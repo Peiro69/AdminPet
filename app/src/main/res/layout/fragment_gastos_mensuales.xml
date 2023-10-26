@@ -59,16 +59,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gastoMensual" />
 
-    <Button
-        android:id="@+id/btnComparacionGastos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="@string/comparacionGastos"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.522"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnGastoMes" />
+    <FrameLayout
+        android:id="@+id/contenedorCalculo"
+        android:layout_width="409dp"
+        android:layout_height="366dp"
+        tools:layout_editor_absoluteX="2dp"
+        tools:layout_editor_absoluteY="365dp">
+
+    </FrameLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
