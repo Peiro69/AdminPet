@@ -10,14 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -34,8 +32,6 @@ public class GastosMensuales extends Fragment {
 
 
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -75,11 +71,14 @@ public class GastosMensuales extends Fragment {
                              Bundle savedInstanceState) {
         View a = inflater.inflate(R.layout.fragment_gastos_mensuales, container, false);
         // Inflate the layout for this fragment
-        //String ide = "";
-        //Bundle args = getArguments();
-        //if (args!=null){
-        //    ide = args.getString("id");
-        //}
+        String ide = "";
+        Bundle args = getArguments();
+        if (args!=null){
+            ide = args.getString("id");
+        }
+
+        Toast.makeText(getActivity().getApplicationContext(), "ARGS: " +args, Toast.LENGTH_SHORT).show();
+
 
         EditText c1 = a.findViewById(R.id.gastoMensual);
         Button btnGM = a.findViewById(R.id.btnGastoMes);
