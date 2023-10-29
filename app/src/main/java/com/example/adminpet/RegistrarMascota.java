@@ -27,6 +27,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -39,12 +40,13 @@ public class RegistrarMascota extends Fragment {
 
     static final int GALLERY_INTENT = 1;
 
-    private StorageReference mStorage;
+
 
     private ImageView foto;
 
     private Uri uri;
 
+    private StorageReference mStorage;
 
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -74,7 +76,7 @@ public class RegistrarMascota extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        mStorage = FirebaseStorage.getInstance().getReference();
     }
 
     @Override
@@ -130,7 +132,8 @@ public class RegistrarMascota extends Fragment {
                         db.collection("mascotas").add(inter).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {
-                                Toast.makeText(getActivity().getApplicationContext(), "Bienvenid@ a AdminPet: "+nomMascota, Toast.LENGTH_SHORT).show();
+                                subirFoto(idMascota,getID());
+                                //Toast.makeText(getActivity().getApplicationContext(), "Bienvenid@ a AdminPet: "+nomMascota, Toast.LENGTH_SHORT).show();
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
@@ -153,6 +156,30 @@ public class RegistrarMascota extends Fragment {
         return a;
     }
 
+    private void subirFoto(String idMascota,String idUsuario) {
+        if (uri != null){
+            StorageReference filePath = mStorage.child("fotos").child(uri.getLastPathSegment());
+            filePath.putFile(uri).addOnSuccessListener(taskSnapshot -> {
+                filePath.getDownloadUrl().addOnSuccessListener(uri -> {
+                    String url = uri.toString();
+                    asignarImagen(url,idMascota,idUsuario);
+                });
+            });
+        }
+
+
+    }
+
+    private void asignarImagen(String url, String idMascota, String idUsuario) {
+        Map<String, Object> act = new HashMap<>();
+        act.put("foto",url);
+        db.collection("usuarios/"+idUsuario+"/mascotas").document(idMascota).update(act).addOnSuccessListener(aVoid -> {
+            Toast.makeText(getActivity().getApplicationContext(), "Registro Completo", Toast.LENGTH_SHORT).show();
+        }).addOnFailureListener(e -> {
+            Toast.makeText(getActivity().getApplicationContext(), "Algo Falló", Toast.LENGTH_SHORT).show();
+        });
+    }
+
 
     private void abrirGaleria() {
         Intent intent = new Intent(Intent.ACTION_PICK);
@@ -164,9 +191,10 @@ public class RegistrarMascota extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == GALLERY_INTENT && resultCode == RESULT_OK && data != null && data.getData() != null) {
+        if (requestCode == GALLERY_INTENT && resultCode == RESULT_OK) {
             uri = data.getData();
             foto.setImageURI(uri);
+
         }
     }
 
