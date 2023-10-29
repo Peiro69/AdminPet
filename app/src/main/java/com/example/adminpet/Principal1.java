@@ -30,9 +30,6 @@ public class Principal1 extends AppCompatActivity {
         Bundle paquete = getIntent().getExtras();
         if(paquete != null){
             ide = paquete.getString("id");
-            System.out.println("peiroooo: "+ide);
-            Toast.makeText(this, "id: " + ide, Toast.LENGTH_SHORT).show();
-
         }
 
 
