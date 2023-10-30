@@ -13,10 +13,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class Principal1 extends AppCompatActivity {
+
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +42,41 @@ public class Principal1 extends AppCompatActivity {
         }
 
 
+        String finalIde = ide;
+
+        //Toast.makeText(this, "ide: "+finalIde, Toast.LENGTH_SHORT).show();
+
+        db.collection("usuarios/"+ide+"/mascotas")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            //System.out.println("holi: "+task.getResult());
+                            //System.out.println("myInteger es de tipo " +  ((Object)task.getResult()).getClass().getSimpleName());
+
+                            QuerySnapshot qs = task.getResult();
+
+                            if (qs.isEmpty()){
+                                PantallaInicio pi = new PantallaInicio();
+                                getSupportFragmentManager().beginTransaction().replace(R.id.contenedor,pi).commit();
+                                Toast.makeText(Principal1.this, "Mascotas Registradas", Toast.LENGTH_SHORT).show();
+
+                            }else {
+                                pantalla_inicio_con_mascotas picm = new pantalla_inicio_con_mascotas(finalIde);
+                                getSupportFragmentManager().beginTransaction().replace(R.id.contenedor,picm).commit();
+                                Toast.makeText(Principal1.this, "Mascotas Registradas", Toast.LENGTH_SHORT).show();
+
+                            }
 
 
-        PantallaInicio pi = new PantallaInicio();
-        getSupportFragmentManager().beginTransaction().replace(R.id.contenedor,pi).commit();
+                        } else {
+                            Toast.makeText(Principal1.this, "Ha ocurrido un error", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+
 
 
         FloatingActionButton fab = findViewById(R.id.btnFlotante);
@@ -76,13 +116,6 @@ public class Principal1 extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-                String ide = "";
-
-                Bundle paquete = getIntent().getExtras();
-                if(paquete != null){
-                    ide = paquete.getString("id");
-                }
-
 
                 int id = item.getItemId();
                 if (id == R.id.op1){
@@ -112,12 +145,40 @@ public class Principal1 extends AppCompatActivity {
 
                 } else if (id==R.id.op4) {
                     fab.setVisibility(View.VISIBLE);
-                    PantallaInicio pi = new PantallaInicio();
-                    getSupportFragmentManager().beginTransaction().replace(R.id.contenedor,pi).commit();
-                    Toast.makeText(getApplicationContext(),"Mascotas Registradas",Toast.LENGTH_SHORT).show();
+                    db.collection("usuarios/"+finalIde+"/mascotas")
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        //System.out.println("holi: "+task.getResult());
+                                        //System.out.println("myInteger es de tipo " +  ((Object)task.getResult()).getClass().getSimpleName());
+
+                                        QuerySnapshot qs = task.getResult();
+
+                                        if (qs.isEmpty()){
+                                            PantallaInicio pi = new PantallaInicio();
+                                            getSupportFragmentManager().beginTransaction().replace(R.id.contenedor,pi).commit();
+                                            Toast.makeText(Principal1.this, "Mascotas Registradas", Toast.LENGTH_SHORT).show();
+                                        }else {
+                                            pantalla_inicio_con_mascotas picm = new pantalla_inicio_con_mascotas(finalIde);
+                                            getSupportFragmentManager().beginTransaction().replace(R.id.contenedor,picm).commit();
+                                            Toast.makeText(Principal1.this, "Mascotas Registradas", Toast.LENGTH_SHORT).show();
+                                        }
+
+
+                                    } else {
+                                        Toast.makeText(Principal1.this, "Ha ocurrido un error", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+
+                    //PantallaInicio pi = new PantallaInicio();
+                    //getSupportFragmentManager().beginTransaction().replace(R.id.contenedor,pi).commit();
+                    //Toast.makeText(getApplicationContext(),"Mascotas Registradas",Toast.LENGTH_SHORT).show();
                 } else if (id==R.id.op5) {
                     fab.setVisibility(View.GONE);
-                    RegistrarMascota rm = new RegistrarMascota(ide);
+                    RegistrarMascota rm = new RegistrarMascota(finalIde);
                     getSupportFragmentManager().beginTransaction().replace(R.id.contenedor,rm).commit();
                     Toast.makeText(Principal1.this, "Registrar Mascota" , Toast.LENGTH_SHORT).show();
                 } else if (id==R.id.op6) {

@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="100dp"
+    android:background="@color/color5"
     android:gravity="center_horizontal">
 
     <ImageView
@@ -25,7 +26,10 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="40dp"
             android:layout_weight="1"
-            android:text="TextView" />
+            android:gravity="center_vertical"
+            android:text="TextView"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white" />
 
         <TextView
             android:id="@+id/tvEdad"
@@ -34,6 +38,9 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="40dp"
             android:layout_weight="1"
-            android:text="TextView" />
+            android:gravity="center_vertical"
+            android:text="TextView"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white" />
     </LinearLayout>
 </LinearLayout>
